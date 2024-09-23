@@ -1,0 +1,25 @@
+<!--quotes/templates/quotes/show_all.html-->
+{% extends 'quotes/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>All Quotes and Images</h1>
+<div>
+    <br>
+    <ul>
+        {% for quote in quotes %}
+            <li><p>{{ quote }}</p></li>
+        {% endfor %}
+    </ul>  
+</div>
+
+<div>
+    <br>
+    {% for img in imgs %}
+        <img src="{% static img %}" alt="amy_winehouse">
+        <br>
+    {% endfor %}
+</div> 
+
+
+{% endblock %}
