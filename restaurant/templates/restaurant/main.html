@@ -1,0 +1,28 @@
+<!--restaurant/templates/restaurant/main.html-->
+{% extends 'restaurant/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Homepage</h1>
+<div>
+    <h2>Welcome to Tenor Taqueria!</h2>
+    <br>
+    <img src="{% static img %}" alt="restaurant_image">
+    <br>
+    <h3>ADDRESS</h3>
+    <p>We are located at 665 Commonweath Ave., Room 723.</p>
+    <br>
+    <h3>HOURS OF OPERATION</h3>
+    <ul>
+        <li>Monday: 12:01am - 11:59pm</li>
+        <li>Tuesday: 12:01am - 12:02 am</li>
+        <li>Wednesday: 11:11am - 11:11pm</li>
+        <li>Thursday: 9:00am - 5:00pm</li>
+        <li>Friday: CLOSED</li>
+        <li>Saturday: CLOSED</li>
+        <li>Sunday: 3:33pm - 3:34pm</li>
+    </ul>
+    <br>
+</div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+<!--restaurant/templates/restaurant/order.html-->
+{% extends 'restaurant/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Order</h1>
+<div>
+    <form action="{% url 'confirmation' %}" method="POST">
+        {% csrf_token %}
+        <h3>Menu</h3>
+
+        <!-- checkboxes for menu -->
+        <input type="checkbox" id="tacos" name="menu_choice" value="Tacos - $12"> Tacos - $12<br>
+        <input type="checkbox" id="burrito" name="menu_choice" value="Burrito - $8"> Burrito - $8<br>
+
+        <!-- burrito options -->
+        <div id="burrito_options">
+            <input type="checkbox" id="burrito_beef" name="burrito_choice" value="Beef - $3"> Beef - $3<br>
+            <input type="checkbox" id="burrito_chicken" name="burrito_choice" value="Chicken - $1"> Chicken - $1<br>
+            <input type="checkbox" id="burrito_carnitas" name="burrito_choice" value="Carnitas - $2"> Carnitas - $2<br>
+        </div>
+        <input type="checkbox" id="chimichangas" name="menu_choice" value="Chimichangas - $9"> Chimichangas - $9<br>
+        <input type="checkbox" id="nachos" name="menu_choice" value="Nachos - $10"> Nachos - $10<br>
+        <br>
+
+        <h3>Daily Special</h3>
+        <input type="checkbox" id="special" name="menu_choice" value="{{ special }}"> {{special}}
+        <br>
+
+        <!-- text info -->
+        <h3>Special Instructions</h3>
+        <textarea id="instructions" name="instructions" rows="5" cols="50"></textarea>
+        <br>
+
+        <h3>Customer Information</h3>
+        Name: <input type="text" name="customer_name" id="customer_name"><br>
+        Phone Number: <input type="text" name="customer_number" id="customer_number"><br>
+        Email: <input type="text" name="customer_email" id="customer_email"><br>
+        <br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+</div>
+
+{% endblock %}

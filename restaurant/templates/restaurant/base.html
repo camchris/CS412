@@ -1,0 +1,26 @@
+<!--restaurant/templates/restaurant/base.html-->
+
+{% load static %}
+<html>
+    <head>
+        <title>Tenor Taqueria</title>
+        <!--<link rel="stylesheet" href="/static/styles.css">-->
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="{% url 'main' %}">Homepage</a></li>
+                <li><a href="{% url 'order' %}">Order Here</a></li>
+            </ul>
+        </nav>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </body>
+
+
+
+</html>

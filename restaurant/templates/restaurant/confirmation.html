@@ -1,0 +1,42 @@
+<!--restaurant/templates/restaurant/confirmation.html-->
+{% extends 'restaurant/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>CONFIRMATION</h1>
+<div>
+    <h2>The following details haves been submitted for your order: </h2>
+
+    <ul>
+        <li>Name: {{ name }}</li>
+        <li>Phone Number: {{ number }}</li>
+        <li>Email: {{ email }}</li>
+        <li>Special Instructions: {{ instructions }}</li>
+
+        <!-- printing menu items -->
+        <li>Ordered Menu Items:
+            <ul>
+                {% for item in menu_choices %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+
+        <!-- burrito options only if burrito was selected -->
+        {% if 'Burrito - $8' in menu_choices %}
+            <li>Burrito Options:
+                <ul>
+                    {% for choice in burrito_choices %}
+                        <li>{{ choice }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endif %}
+
+        <br>
+        <li><strong>Total Price: ${{ total }}</strong></li>
+    </ul>
+
+</div>
+
+{% endblock %}
