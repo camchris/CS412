@@ -1,0 +1,21 @@
+<!--mini_fb/templates/mini_fb/show_all_profiles.html-->
+{% extends 'mini_fb/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div>
+    <div id="fb_profiles">
+        {% for p in profiles %}
+        <table>
+            <tr><img src="{{p.profile_image_url}}" alt="image of {{p.first_name}}" id="fb_image"></tr>
+            <tr><h2>{{p.first_name}} {{p.last_name}}</h2></tr>
+            <tr><p>from {{p.city}}</p></tr>
+            <tr><p>Email: {{p.email_address}}</p></tr>
+        </table>
+        <br>
+        {% endfor %}
+    </div>
+<div>
+
+{% endblock %}

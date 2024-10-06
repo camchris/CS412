@@ -72,6 +72,17 @@ table {
     text-align: left;
 }
 
+#fb_profiles {
+    display: flex;
+    flex-direction: column;
+}
+
+
+#fb_image {
+    width: 20%;
+    height: auto;
+}
+
 td {
     text-align: left;
     vertical-align: top;

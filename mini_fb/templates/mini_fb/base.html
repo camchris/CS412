@@ -1,0 +1,31 @@
+<!--mini_fb/templates/mini_fb/base.html-->
+
+{% load static %}
+<html>
+    <head>
+        <title>Mini Facebook</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+
+    </head>
+    <body>
+        <header>
+            <h1>Mini Facebook</h1>
+        </header>
+        <nav>
+            <ul>
+                <li>Browse</li>
+                <li>Profile</li>
+            </ul>
+        </nav>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer>
+            Created for CS412 Assignment 5: Mini Facebook
+        </footer>
+    </body>
+
+
+
+</html>
