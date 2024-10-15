@@ -1,0 +1,34 @@
+<!--mini_fb/templates/mini_fb/show_profiles.html-->
+{% extends 'mini_fb/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main>
+    <table>
+        <tr>
+            {% if profile.profile_image_url %}
+                <img src="{{profile.profile_image_url}}" alt="{{profile.profile_image_url}}">
+            {% endif %}
+        </tr>
+        <tr><h2>{{profile.first_name}} {{profile.last_name}}</h2></tr>
+        <tr><p>From {{profile.city}}</p></tr>
+        <tr><p>{{profile.email_address}}</p></tr>
+    </table>
+    <br>
+    <div>
+        <h2>Messages</h2>
+        <!-- Status Messages -->
+        {% for m in profile.get_status_messages %}
+        <div>
+            <p><strong>{{m.timestamp}}: </strong></p>
+            <p>{{m.message}}</p>
+        </div>
+        {% endfor %}
+        <br>
+        <h3><a href="{% url 'create_status' profile.pk %}">Leave a status message</a></h3>
+    </div>
+    <br>
+</main>
+
+{% endblock %}
