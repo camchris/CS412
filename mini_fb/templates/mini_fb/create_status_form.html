@@ -4,7 +4,16 @@
     <h2>Add a status message</h2>
     <form method = 'POST'>
         {% csrf_token %}
-        {{form}} 
-        <input type='submit' name = 'Add Status Message!' value= 'Add Status Message!'>
+        <table>
+            {% for field in form %}
+            <tr>{{field}}</tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td>
+                    <input type='submit' name = 'Add Message!' value= 'Add Message!'>
+                </td>
+            </tr>
+            </table>
     </form>
 {% endblock %}
