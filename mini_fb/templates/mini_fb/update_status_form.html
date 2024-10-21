@@ -1,0 +1,17 @@
+<!--mini_fb/templates/mini_fb/delete_status_form.html-->
+{% extends 'mini_fb/base.html' %}
+{% block content %}
+    <h3>Update Message: </h3>
+    {{message}}
+    <p>
+    </p>
+    <form method='POST'>
+        {% csrf_token %}
+        {{form}}
+        <input type='submit' name="Update" value="Update">
+    </form>
+    <form method='GET' action="{% url 'show_profile' message.profile.pk %}">
+        {% csrf_token %}
+        <input type='submit' name="Cancel" value="Cancel">
+    </form>
+{% endblock %}

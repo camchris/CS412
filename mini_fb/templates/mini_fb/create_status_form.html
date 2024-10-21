@@ -2,12 +2,14 @@
 {% extends 'mini_fb/base.html' %}
 {% block content %}
     <h2>Add a status message</h2>
-    <form method = 'POST'>
+    <form method = 'POST' enctype="multipart/form-data">
         {% csrf_token %}
         <table>
             {% for field in form %}
             <tr>{{field}}</tr>
             {% endfor %}
+            <br>
+            <tr>Add photos: <input type="file" name = "files" multiple /></tr>
             <tr>
                 <td></td>
                 <td>

@@ -14,19 +14,39 @@
         <tr><h2>{{profile.first_name}} {{profile.last_name}}</h2></tr>
         <tr><p>From {{profile.city}}</p></tr>
         <tr><p>{{profile.email_address}}</p></tr>
+        <tr>
+            <td>
+                <a href="{% url 'update_profile' profile.pk %}" class="btn_link">Update profile</a>
+            </td>
+            <td>
+                <a href="{% url 'create_status' profile.pk %}" class="btn_link">Leave a status message</a>
+            </td>
+        </tr>
     </table>
     <br>
     <div>
         <h2>Messages</h2>
-        <!-- Status Messages -->
         {% for m in profile.get_status_messages %}
-        <div>
-            <p><strong>{{m.timestamp}}: </strong></p>
-            <p>{{m.message}}</p>
-        </div>
+        <table>
+            <tr><p><strong>{{m.timestamp}}: </strong></p></tr>
+            <tr><p>{{m.message}}</p></tr>
+            <tr>
+                {% for img in m.get_images %}
+                    <img src='{{img.image_file.url}}' alt='image!'>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>
+                    <a href="{% url 'delete_status' m.pk %}" class="btn_link">Delete</a>
+                </td>
+                <td>
+                    <a href="{% url 'update_status' m.pk %}" class="btn_link">Update</a>
+                </td>
+            </tr>
+        </table>
+        <br>
         {% endfor %}
         <br>
-        <h3><a href="{% url 'create_status' profile.pk %}">Leave a status message</a></h3>
     </div>
     <br>
 </main>
