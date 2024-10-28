@@ -1,7 +1,9 @@
-from .models import Profile, Image, StatusMessage
+from .models import Profile, Image, StatusMessage, Friend
 import random
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
 
@@ -76,6 +78,32 @@ class UpdateStatusMessageView(UpdateView):
     def get_success_url(self) -> str:
         profile_pk = self.get_object().profile.pk
         return reverse('show_profile', kwargs={'pk': profile_pk})
+    
+class CreateFriendView(View):
+    '''A view to create a friend relationship and save it to the database.'''
+    def dispatch(self, request, *args, **kwargs):
+        profile_pk = kwargs.get('pk')
+        friend_pk = kwargs.get('other_pk')
+        
+        profile = get_object_or_404(Profile, id=profile_pk)
+        friend_profile = get_object_or_404(Profile, id=friend_pk)
+        
+        result = profile.add_friend(friend_profile)
+        
+        return HttpResponseRedirect(reverse('show_profile', kwargs={'pk': profile_pk}))
+    
+class ShowFriendSuggestionsView(DetailView):
+    '''A view to suggest friends to a user.'''
+    model = Profile
+    template_name = "mini_fb/friend_suggestions.html"
+    context_object_name = 'profile'
+
+class ShowNewsFeedView(DetailView):
+    '''A view to view the newsfeed of a user.'''
+    model = Profile
+    template_name = "mini_fb/news_feed.html"
+    context_object_name = 'profile'
+    
 
 
 

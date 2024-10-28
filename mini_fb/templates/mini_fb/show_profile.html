@@ -22,7 +22,27 @@
                 <a href="{% url 'create_status' profile.pk %}" class="btn_link">Leave a status message</a>
             </td>
         </tr>
+        <tr>
+            <td><a href="{% url 'news_feed' profile.pk %}" class="btn_link">See news feed</a></td>
+            <td><a href="{% url 'suggest_friends' profile.pk %}" class="btn_link">See friend suggestions</a></td>
+        </tr>
     </table>
+    <br>
+    <div>
+        <h2>{{profile.first_name}}'s friends: </h2>
+        {% for f in profile.get_friends %}
+        <table>
+            <tr>
+                {% if f.profile_image_url %}
+                    <img src="{{f.profile_image_url}}" alt="{{f.profile_image_url}}" id="fb_image">
+                {% endif %}
+            </tr>
+            <tr><h2><a href="{% url 'show_profile' f.pk %}">{{f.first_name}} {{f.last_name}}</a></h2></tr>
+        </table>
+        <br>
+
+        {% endfor %}
+    </div>
     <br>
     <div>
         <h2>Messages</h2>

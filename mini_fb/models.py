@@ -14,6 +14,43 @@ class Profile(models.Model):
         messages = StatusMessage.objects.filter(profile=self)
         return messages
     
+    def get_friends(self):
+        '''Return all of the friends of this profile.'''
+        friend1_profiles = Profile.objects.filter(profile2__profile1=self)
+        friend2_profiles = Profile.objects.filter(profile1__profile2=self)
+
+        return (friend1_profiles | friend2_profiles).distinct()
+    
+    def add_friend(self, other):
+        '''Add a friend to this profile.'''
+        if other in self.get_friends() or self == other:
+            return "Cannot add friend."
+        else:
+            Friend.objects.create(profile1=self, profile2=other)
+            return "Friend added successfully."
+        
+    def get_friend_suggestions(self):
+        '''Suggest friends to profile'''
+        current_friends = self.get_friends()
+        suggestions = set() 
+
+        for friend in current_friends:
+            potential_friends = friend.get_friends()
+            for potential_friend in potential_friends:
+                if potential_friend != self and potential_friend not in current_friends and potential_friend not in suggestions:
+                    suggestions.add(potential_friend)
+
+        return list(suggestions)
+    
+    def get_news_feed(self):
+        profile_sm = self.get_status_messages()
+        friends = self.get_friends()
+        newsfeed = set(profile_sm) 
+        for f in friends:
+            for m in f.get_status_messages():
+                newsfeed.add(m)
+        return list(newsfeed)
+    
     def get_absolute_url(self) -> str:
         '''Return the URL to redirect to after successfully submitting form.'''
 
@@ -47,3 +84,14 @@ class Image(models.Model):
     def __str__(self):
         '''Return a string representation of this StatusMessage object.'''
         return f'{self.timestamp}'
+    
+
+class Friend(models.Model):
+    '''Friend class for mini_fb.'''
+    profile1 = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name='profile1')
+    profile2 = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name='profile2')
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        '''Return a string representation of this StatusMessage object.'''
+        return f'{self.profile1.first_name} {self.profile1.last_name} & {self.profile2.first_name} {self.profile2.last_name}'
