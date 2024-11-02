@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 class Profile(models.Model):
     '''Profiles for mini_fb.'''
@@ -8,6 +9,8 @@ class Profile(models.Model):
     city = models.TextField(blank=False)
     email_address = models.TextField(blank=False)
     profile_image_url = models.TextField(blank=False)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def get_status_messages(self):
         '''Return all of the status messages of this profile.'''
@@ -40,6 +43,9 @@ class Profile(models.Model):
                 if potential_friend != self and potential_friend not in current_friends and potential_friend not in suggestions:
                     suggestions.add(potential_friend)
 
+        if len(suggestions) == 0:
+            all_profiles = set(Profile.objects.all())
+            suggestions = all_profiles - {self} - set(current_friends)
         return list(suggestions)
     
     def get_news_feed(self):
