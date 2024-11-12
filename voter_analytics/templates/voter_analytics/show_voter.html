@@ -1,0 +1,46 @@
+<!-- voter_analytics/templates/voter_analytics/show_all_voters.html -->
+
+{% extends 'voter_analytics/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<ul>
+    <li>First Name: {{ v.first_name }}</li>
+    <li>Last Name: {{ v.last_name }}</li>
+    <li>Street Name: {{ v.address_streetname }}</li>
+    <li>Street Number: {{ v.address_streetnum }}</li>
+    <li>Apartment Number: {{ v.address_aptnum }}</li>
+    <li>Zip: {{ v.address_zip }}</li>
+    <li>
+        <a href="https://www.google.com/maps/search/?api=1&query={{ v.address_streetnum }}+{{ v.address_streetname }}+{{ v.address_zip }}" target="_blank">
+        View Street Address on Google Maps</a></li>
+    <li>Date of Birth: {{ v.birth_date }}</li>
+    <li>Date of Registration: {{ v.registration_date }}</li>
+    <li>Party Affiliation: {{ v.party }}</li>
+    <li>Precinct Number: {{ v.precinct_num }}</li>
+    <li>Voter Score: {{ v.voter_score }}</li>
+    <li>
+        Elections Participated In: 
+        <ul>
+            {% if v.v20state == 'TRUE' %}
+                <li>2020 State Election </li>
+            {% endif %}
+            {% if v.v21town == 'TRUE' %}
+                <li>2021 Town Election </li>
+            {% endif %}
+            {% if v.v21primary == 'TRUE' %}
+                <li>2021 Primary Election </li>
+            {% endif %}
+            {% if v.v22general == 'TRUE' %}
+                <li>2022 General Election </li>
+            {% endif %}
+            {% if v.v23town == 'TRUE' %}
+                <li>2023 Town Election</li> 
+            {% endif %}
+        </ul>
+    </li>
+</ul>
+
+
+{% endblock %}

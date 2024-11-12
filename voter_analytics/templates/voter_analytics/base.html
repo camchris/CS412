@@ -1,0 +1,31 @@
+<!--voter_analytics/templates/voter_analytics/base.html-->
+
+{% load static %}
+<html>
+    <head>
+        <title>Voter Analytics</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+
+    </head>
+    <body>
+        <header>
+            <h1>Voter Analytics</h1>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'voters' %}">All Voters</a></li>
+                <li><a href="{% url 'graphs' %}">Graphs</a></li>
+            </ul>
+        </nav>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer>
+            Created for CS412 Assignment 10: Voter Analytics
+        </footer>
+    </body>
+
+
+
+</html>

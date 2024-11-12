@@ -25,7 +25,8 @@ urlpatterns = [
     path("hw/", include("hw.urls")), # we create the URL hw/, and associate it with URLs in another file
     path("quotes/", include("quotes.urls")),
     path("restaurant/", include("restaurant.urls")),
-    path("mini_fb/", include("mini_fb.urls"))
+    path("mini_fb/", include("mini_fb.urls")),
+    path("voter_analytics/", include("voter_analytics.urls"))
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

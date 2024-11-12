@@ -1,0 +1,64 @@
+<!-- voter_analytics/templates/voter_analytics/show_all_voters.html -->
+
+{% extends 'voter_analytics/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit">Filter</button>
+        <a href="{% url 'voters' %}">Reset Filters</a>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Street Name</th>
+                <th>Street Number</th>
+                <th>Apartment Number</th>
+                <th>Zip</th>
+                <th>Date of Birth</th>
+                <th>Party Affiliation</th>
+                <th>Voter Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for voter in voters %}
+                <tr>
+                    <td><a href="{% url 'voter' voter.pk %}">{{ voter.first_name }} {{ voter.last_name }}</a></td>
+                    <td>{{ voter.address_streetname }}</td>
+                    <td>{{ voter.address_streetnum }}</td>
+                    <td>{{ voter.address_aptnum }}</td>
+                    <td>{{ voter.address_zip }}</td>
+                    <td>{{ voter.birth_date }}</td>
+                    <td>{{ voter.party }}</td>
+                    <td>{{ voter.voter_score }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="row">
+        {% if is_paginated %}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li>
+                    <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span>
+             
+                </li>
+            {% endif %}
+                <li class="">
+                    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+                </li>
+            {% if page_obj.has_next %}
+                <li>
+                    <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
+                </li>
+            {% endif %}
+            </ul>
+        {% endif %}
+    </div>   
+
+{% endblock %}

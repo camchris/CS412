@@ -1,0 +1,32 @@
+<!-- voter_analytics/templates/voter_analytics/graphs.html -->
+
+{% extends 'voter_analytics/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<form method="get">
+    {{ form.as_p }}
+    <button type="submit">Filter</button>
+    <a href="{% url 'graphs' %}">Reset Filters</a>
+</form>
+<br>
+
+<h2>Voter Birth Year Distribution</h2>
+<div>
+    {{ birth_year_histogram|safe }}
+</div>
+<br>
+
+<h2>Voter Party Affiliation Distribution</h2>
+<div>
+    {{ party_pie|safe }}
+</div>
+<br>
+
+<h2>Voter Participation in Elections</h2>
+<div>
+    {{ election_bar|safe }}
+</div>
+
+{% endblock %}
