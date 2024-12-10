@@ -1,3 +1,10 @@
+'''
+Camille Christie
+U89708684
+camchris@bu.edu
+URLS for Music Network project (CS412 final project)
+'''
+
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from .views import ShowAllProfilesView, ShowAllInstrumentsView, EditProfileView, ShowProfileView, ShowAllJobPostsView, ShowAllMediaPostsView, ShowMediaPostView, ShowJobPostView, ShowInstrumentProfilesView, CreateNewProfileView, ShowSuggestionsView, CreateNewFriendView, CreateNewUserInstrumentView, ShowSuggestedInstrumentsView, CreateJobPostView, CreateMediaPostView, EditJobPostView, EditMediaPostView, DeleteJobPostView

@@ -1,3 +1,10 @@
+'''
+Camille Christie
+U89708684
+camchris@bu.edu
+Models for Music Network project (CS412 final project)
+'''
+
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -177,6 +184,7 @@ class Video(models.Model):
     
 
 class JobPost(models.Model):
+    '''JobPost class for final project.'''
     timestamp = models.DateTimeField(auto_now=True)
     description = models.TextField(blank=False)
     profile = models.ForeignKey("Profile", on_delete=models.CASCADE)

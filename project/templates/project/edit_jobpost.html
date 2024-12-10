@@ -1,10 +1,9 @@
+<!--Camille Christie, U89708684, camchris@bu.edu-->
 <!--project/templates/project/edit_jobpost.html-->
 {% extends 'project/base.html' %}
 {% block content %}
     <h3>Update Job Posting: </h3>
-    {{jobpost}}
-    <p>
-    </p>
+    <br>
     <form method='POST'>
         {% csrf_token %}
         <table>

@@ -1,3 +1,10 @@
+'''
+Camille Christie
+U89708684
+camchris@bu.edu
+Views for Music Network project (CS412 final project)
+'''
+
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -127,7 +134,7 @@ class ShowAllJobPostsView(ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
-        '''Add additional context to the template.'''
+        '''Add context to the template.'''
         context = super().get_context_data(**kwargs)
         context['request'] = self.request
         context['instruments'] = Instrument.objects.all()  # pass all instruments to the template
@@ -148,7 +155,7 @@ class ShowJobPostView(DetailView):
     context_object_name = 'post'
 
 class CreateJobPostView(LoginRequiredMixin, CreateView):
-    '''A view to create a new status message and save it to the database.'''
+    '''A view to create a new jobpost and save it to the database.'''
     form_class = CreateJobPostForm
     template_name = "project/create_jobpost_form.html"
 
@@ -179,11 +186,10 @@ class CreateJobPostView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self) -> str:
         '''Return the URL to redirect to after successfully submitting form.'''
-        #return reverse('show_all_profiles')
         return reverse('show_profile', kwargs={'pk': self.get_object().pk})
     
 class EditJobPostView(LoginRequiredMixin, UpdateView):
-    '''A view to update a status message and save it to the database.'''
+    '''A view to update a jobpost and save it to the database.'''
     model = JobPost
     template_name = "project/edit_jobpost.html"
     context_object_name = 'jobpost'
@@ -199,7 +205,7 @@ class EditJobPostView(LoginRequiredMixin, UpdateView):
         return reverse('show_profile', kwargs={'pk': profile_pk})
     
 class DeleteJobPostView(LoginRequiredMixin, DeleteView):
-    '''A view to delete a status message'''
+    '''A view to delete a jobpost'''
     model = JobPost
     template_name = 'project/delete_jobpost.html'
     context_object_name = 'jobpost'
@@ -213,7 +219,7 @@ class DeleteJobPostView(LoginRequiredMixin, DeleteView):
         return reverse('show_profile', kwargs={'pk': profile_pk})
     
 class CreateMediaPostView(LoginRequiredMixin, CreateView):
-    '''A view to create a new status message and save it to the database.'''
+    '''A view to create a new mediapost and save it to the database.'''
     form_class = CreateMediaPostForm
     template_name = "project/create_mediapost.html"
 
@@ -258,7 +264,7 @@ class CreateMediaPostView(LoginRequiredMixin, CreateView):
         return reverse('show_profile', kwargs={'pk': self.get_object().pk})
     
 class EditMediaPostView(LoginRequiredMixin, UpdateView):
-    '''A view to update a status message and save it to the database.'''
+    '''A view to update a mediapost and save it to the database.'''
     model = MediaPost
     template_name = "project/edit_mediapost.html"
     context_object_name = 'mediapost'

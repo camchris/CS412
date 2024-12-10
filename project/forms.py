@@ -1,3 +1,10 @@
+'''
+Camille Christie
+U89708684
+camchris@bu.edu
+Forms for Music Network project (CS412 final project)
+'''
+
 from django import forms
 from .models import Profile, JobPost, MediaPost
 
