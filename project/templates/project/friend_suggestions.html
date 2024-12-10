@@ -1,0 +1,18 @@
+<!--project/templates/project/friend_suggestions.html-->
+{% extends 'project/base.html' %}
+{% block content %}
+<p><a href="{% url 'show_profile' profile.pk %}" class="btn_link">Back to profile</a></p>
+<br>
+<h2>Friend Suggestions for {{profile.first_name}}</h2>
+<br>
+<div id="fb_profiles">
+    {% for p in profile.get_friend_suggestions %}
+    <div class="card">
+        <img src="{{p.profile_image_url}}" alt="image of {{p.first_name}}" class="fb-image">
+        <h2><a href="{% url 'show_profile' p.pk %}">{{p.first_name}} {{p.last_name}}</a></h2>
+        <p><a href="{% url 'add_friend' p.pk %}" class="btn_link">Add friend</a></p>
+    </div>
+    {% endfor %}
+</div>
+    
+{% endblock %}

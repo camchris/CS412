@@ -1,0 +1,51 @@
+<!--project/templates/project/base.html-->
+
+{% load static %}
+<html>
+    <head>
+        <title>Music Network</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+
+    </head>
+    <body>
+        <header>
+            <h1>Music Network</h1>
+        </header>
+
+        <nav>
+            {% if request.user.is_authenticated %}
+                Logged in user: {{ request.user }}.
+            {% else %}
+                Not logged in.
+            {% endif %}
+            <ul>
+                {% if not request.user.is_authenticated %}
+                    <li><a href="{% url 'create_new_profile' %}">Create a Profile</a></li>
+                    <li><a href="{% url 'login' %}" >Log in</a></li>
+                    <li><a href="{% url 'show_profiles' %}">Browse</a></li>
+                    <li><a href="{% url 'show_instruments' %}">Instruments</a></li>
+                {% else %}
+                    <li><a href="{% url 'show_profiles' %}">Browse</a></li>
+                    <li><a href="{% url 'show_instruments' %}">Instruments</a></li>
+                    <li><a href="{% url 'media_posts' %}">Newsfeed</a></li>
+                    <li><a href="{% url 'job_posts' %}">Job Postings</a></li>
+                    <li><form action="{% url 'logout' %}" method="post">
+                        <button type="submit">Log out</button>
+                        {% csrf_token %}
+                    </form></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer>
+            Created for CS412 Final Project
+        </footer>
+    </body>
+
+
+
+</html>

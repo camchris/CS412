@@ -1,0 +1,60 @@
+<!--project/templates/project/display_jobposts.html-->
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div>
+    <h2>Browse Job Postings</h2>
+    <br>
+    <form method="GET">
+        <label for="min_pay">Minimum Pay:</label>
+        <input type="text" id="min_pay" name="min_pay">
+        <br>
+    
+        <label for="max_pay">Maximum Pay:</label>
+        <input type="text" id="max_pay" name="max_pay">
+        <br>
+    
+        <label for="instrument">Instrument:</label>
+        <select id="instrument" name="instrument">
+            <option value="">All Instruments</option>
+            {% for i in instruments %}
+                <option value="{{ i.id }}">
+                    {{ i.name }}
+                </option>
+            {% endfor %}
+        </select>
+        <br>
+    
+        <button type="submit">Filter</button>
+    </form>
+    <br>
+    <div id="fb_profiles">
+        {% for i in job_posts %}
+        <div class="post">
+            <div class="profile-header">
+                <img src="{{i.profile.profile_image_url}}" alt="image of {{i.profile.first_name}} {{i.profile.last_name}}" id="profile_image_mini">
+                <div class="profile-info">
+                    <h2><a href="{% url 'show_jobpost' i.pk %}">{{i.profile.first_name}} {{i.profile.last_name}}</a></h2>
+                    <p class="timestamp">{{i.timestamp}}</p>
+                </div>
+            </div>
+            <div class="post-content">
+                <p><strong>Desired Instrument:</strong> {{i.instrument.name}}</p>
+                <p><strong>Location:</strong>
+                    <a href="https://www.google.com/maps?q={{ i.location|urlencode }}" target="_blank">
+                        {{ i.location }}
+                    </a>
+                </p>
+                <p><strong>Pay:</strong> {{i.pay}}</p>
+                <p><strong>Description:</strong> {{i.description}}</p>
+            </div>
+        </div>
+        <br>
+        {% endfor %}
+    </div>
+    
+<div>
+
+{% endblock %}

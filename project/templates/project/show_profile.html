@@ -1,0 +1,123 @@
+<!--project/templates/mini_fb/show_profile.html-->
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main>
+    <table>
+        <tr>
+            {% if profile.profile_image_url %}
+                <img src="{{profile.profile_image_url}}" alt="{{profile.profile_image_url}}">
+            {% endif %}
+        </tr>
+        <tr><h2>{{profile.first_name}} {{profile.last_name}}</h2></tr>
+        <tr><p>{{profile.address}}</p></tr>
+        <tr><p>{{profile.email_address}}</p></tr>
+    </table>
+    <br>
+    {% if request.user.is_authenticated and request.user == profile.user %}
+        <a href="{% url 'edit_profile' %}" class="btn_link">Update profile</a>
+        <a href="{% url 'suggest_friends' %}" class="btn_link">See friend suggestions</a>
+        <a href="{% url 'add_instruments' %}" class="btn_link">Add instruments to your profile</a>
+        <a href="{% url 'create_jobpost' %}" class="btn_link">Create Job Posting</a>
+        <a href="{% url 'create_mediapost' %}" class="btn_link">Create Post</a>
+    {% endif %}
+
+    <h2>Friends: </h2>
+    <div id="fb_profiles">
+        {% for p in profile.get_friends %}
+        <div class="card">
+            <img src="{{p.profile_image_url}}" alt="image of {{p.first_name}}" class="fb-image">
+            <h2><a href="{% url 'show_profile' p.pk %}">{{p.first_name}} {{p.last_name}}</a></h2>
+        </div>
+        {% endfor %}
+    </div>
+    <br>
+
+    <h2>Instruments: </h2>
+    <div>
+        <div id="fb_profiles">
+            {% for i in profile.get_instruments %}
+            <div class="card">
+                <img src="{{i.instrument.image_url}}" alt="image of {{i.instrumentname}}" class="instrument-image">
+                <h2>{{i.instrument.name}}</h2>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <br>
+
+    <h2>Current Job Postings: </h2>
+    <div id="fb_profiles">
+        {% for i in profile.get_jobposts %}
+        <div class="post">
+            <div class="profile-header">
+                <img src="{{i.profile.profile_image_url}}" alt="image of {{i.profile.first_name}} {{i.profile.last_name}}" id="profile_image_mini">
+                <div class="profile-info">
+                    {% if request.user.is_authenticated and request.user == profile.user %}
+                        <p><a href="{% url 'edit_jobpost' i.pk %}" class="btn_link">Edit post</a></p>
+                        <p><a href="{% url 'delete_jobpost' i.pk %}" class="btn_link">Delete</a></p>
+                    {% else %}
+                        <h2><a href="{% url 'show_jobpost' i.pk %}">{{i.profile.first_name}} {{i.profile.last_name}}</a></h2>
+                    {% endif %}
+                    <p class="timestamp">{{i.timestamp}}</p>
+                </div>
+            </div>
+            <div class="post-content">
+                <p><strong>Desired Instrument:</strong> {{i.instrument.name}}</p>
+                <p><strong>Location:</strong>
+                    <a href="https://www.google.com/maps?q={{ i.location|urlencode }}" target="_blank">
+                        {{ i.location }}
+                    </a>
+                </p>
+                <p><strong>Pay:</strong> {{i.pay}}</p>
+                <p><strong>Description:</strong> {{i.description}}</p>
+            </div>
+        </div>
+        <br>
+        {% endfor %}
+    </div>
+
+    <br>
+    <h2>{{profile.first_name}}'s Posts:</h2>
+    <div id="fb_profiles">
+        {% for i in profile.get_mediaposts %}
+        <div class="post">
+            <div class="profile-header">
+                <img src="{{i.profile.profile_image_url}}" alt="image of {{i.profile.first_name}} {{i.profile.last_name}}" id="profile_image_mini">
+                <div class="profile-info">
+                    {% if request.user.is_authenticated and request.user == profile.user %}
+                        <p><a href="{% url 'edit_mediapost' i.pk %}" class="btn_link">Edit post</a></p>
+                    {% else %}
+                        <h2><a href="{% url 'show_mediapost' i.pk %}">{{i.profile.first_name}} {{i.profile.last_name}}</a></h2>
+                    {% endif %}
+                    <p class="timestamp">{{i.timestamp}}</p>
+                </div>
+            </div>
+            <div class="post-content">
+                <p class="description">{{i.message}}</p>
+                <div class="media">
+                    {% for img in i.get_images %}
+                        <img src="{{ img.image_file.url }}" alt="Image" class="media-item">
+                    {% endfor %}
+                    {% for vid in i.get_videos %}
+                        <video controls class="media-item">
+                            <source src="{{ vid.video_file.url }}" type="video/mp4">
+                        </video>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <br>
+        {% endfor %}
+    </div>
+
+
+
+</main>
+
+{% endblock %}

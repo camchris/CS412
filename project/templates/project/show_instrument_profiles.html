@@ -1,0 +1,20 @@
+<!--project/templates/project/show_instrument_profiles.html-->
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div>
+    <h2>{{instrument.name}} Players</h2>
+    <br>
+    <div id="fb_profiles">
+        {% for p in instrument.get_profiles %}
+        <div class="card">
+            <img src="{{p.profile.profile_image_url}}" alt="image of {{p.profile.first_name}}" class="fb-image">
+            <h2><a href="{% url 'show_profile' p.profile.pk %}">{{p.profile.first_name}} {{p.profile.last_name}}</a></h2>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

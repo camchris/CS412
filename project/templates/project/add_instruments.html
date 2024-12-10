@@ -1,0 +1,21 @@
+<!--project/templates/project/add_instruments.html-->
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div>
+    <h2>Add Instruments to your profile</h2>
+    <br>
+    <div id="fb_profiles">
+        {% for i in profile.get_instrument_suggestions %}
+        <div class="card">
+            <img src="{{i.image_url}}" alt="image of {{i.name}}" class="instrument-image">
+            <h2>{{i.name}}</h2>
+            <p><a href="{% url 'add_instrument' i.pk %}" class="btn_link">Add instrument</a></p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+<!--project/templates/project/show_all_profiles.html-->
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div>
+    <div id="fb_profiles">
+        {% for p in profiles %}
+        <div class="card">
+            <img src="{{p.profile_image_url}}" alt="image of {{p.first_name}}" class="fb-image">
+            <h2><a href="{% url 'show_profile' p.pk %}">{{p.first_name}} {{p.last_name}}</a></h2>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+<!--project/templates/project/show_all_instruments.html-->
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div>
+    <div id="fb_profiles">
+        {% for i in instruments %}
+        <div class="card">
+            <img src="{{i.image_url}}" alt="image of {{i.name}}" class="instrument-image">
+            <h2><a href="{% url 'show_instrument_profiles' i.pk %}">{{i.name}}</a></h2>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

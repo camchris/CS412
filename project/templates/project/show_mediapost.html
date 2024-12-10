@@ -1,0 +1,37 @@
+<!--project/templates/project/show_mediapost.html-->
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main>
+    <div>
+        <div>
+            <div>
+                <div class="profile-header">
+                    <img src="{{post.profile.profile_image_url}}" alt="image of {{post.profile.first_name}} {{post.profile.last_name}}" id="profile_image_mini">
+                    <div class="profile-info">
+                        <h2><a href="{% url 'show_profile' post.profile.pk %}">{{post.profile.first_name}} {{post.profile.last_name}}</a></h2>
+                        <p class="timestamp">{{post.timestamp}}</p>
+                    </div>
+                </div>
+                <div>
+                    <p class="description">{{post.message}}</p>
+                    <div class="media">
+                        {% for img in post.get_images %}
+                            <img src="{{ img.image_file.url }}" alt="Image" class="media-item-fullsize">
+                        {% endfor %}
+                        {% for vid in post.get_videos %}
+                            <video controls class="media-item-fullsize">
+                                <source src="{{ vid.video_file.url }}" type="video/mp4">
+                            </video>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div>
+
+</main>
+
+{% endblock %}

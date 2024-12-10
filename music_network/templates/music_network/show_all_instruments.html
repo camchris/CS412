@@ -1,0 +1,19 @@
+<!--music_network/templates/music_network/show_all_instruments.html-->
+{% extends 'music_network/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div>
+    <div id="fb_profiles">
+        {% for i in instruments %}
+        <table>
+            <tr><img src="{{i.image_url}}" alt="image of {{i.name}}" id="instrument_image"></tr>
+            <tr><h2>{{i.name}}</h2></tr>
+        </table>
+        <br>
+        {% endfor %}
+    </div>
+<div>
+
+{% endblock %}

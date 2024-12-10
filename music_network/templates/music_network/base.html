@@ -1,0 +1,32 @@
+<!--music_network/templates/music_network/base.html-->
+
+{% load static %}
+<html>
+    <head>
+        <title>Music Network</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+
+    </head>
+    <body>
+        <header>
+            <h1>Music Network</h1>
+        </header>
+        <nav>
+            {% if request.user.is_authenticated %}
+                Logged in user: {{ request.user }}.
+            {% else %}
+                Not logged in.
+            {% endif %}
+        </nav>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer>
+            Created for CS412 Final Project
+        </footer>
+    </body>
+
+
+
+</html>

@@ -10,7 +10,7 @@ class Profile(models.Model):
     email_address = models.TextField(blank=False)
     profile_image_url = models.TextField(blank=False)
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="temp")
 
     def get_status_messages(self):
         '''Return all of the status messages of this profile.'''
